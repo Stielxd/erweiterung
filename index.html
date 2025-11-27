@@ -152,7 +152,46 @@
       color: #222;
       line-height: 1.45;
     }
+@media (max-width: 768px) {
+    /* Allgemeine Anpassung für kleine Bildschirme */
+    body {
+        padding: 20px;
+        /* Erlaubt Elementen, untereinander zu springen, falls noch nicht geschehen */
+        flex-direction: column; 
+        align-items: center; /* Zentriert die Elemente */
+        gap: 30px;
+    }
 
+    /* Der Haupt-Container, der Charakterauswahl und die Karten umgibt */
+    .container {
+        flex-direction: column; /* Stellt die Elemente untereinander */
+        align-items: center;
+        gap: 30px;
+    }
+
+    /* Die fixen Breiten auf eine maximale Breite von 90% des Viewports ändern */
+    .character-container,
+    .main-card,
+    .side-card {
+        width: 90vw; /* 90% der Bildschirmbreite */
+        max-width: 450px; /* Begrenzt die maximale Breite, falls der Bildschirm sehr groß ist */
+        box-sizing: border-box; /* Stellt sicher, dass Padding und Border zur Gesamtbreite gehören */
+    }
+
+    /* Button-Textgröße auf mobilen Geräten verkleinern */
+    .card-button {
+        font-size: 20px; 
+        padding: 25px;
+    }
+
+    /* Die ausgeblendeten Charaktere für die Handyansicht wieder anzeigen */
+    .character.hidden {
+        display: flex; /* Oder 'block', je nach ursprünglichem Stil */
+    }
+
+    /* Die Logik, die Charaktere bei Auswahl ausblendet, für Mobilgeräte deaktivieren */
+    /* Oder alternativ: Eine mobile Ansicht entwickeln, bei der alle Charaktere sichtbar bleiben, bis einer ausgewählt wird */
+}
   </style>
 </head>
 <body>
@@ -280,3 +319,4 @@
 
 </body>
 </html>
+

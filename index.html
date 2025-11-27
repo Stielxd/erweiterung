@@ -19,14 +19,12 @@
       flex-wrap: wrap;
     }
 
-    /* Container für Charakter + Main + Side */
     .container {
       display: flex;
       gap: 40px;
       align-items: flex-start;
     }
 
-    /* Charakterauswahl */
     .character-container {
       display: flex;
       flex-direction: column;
@@ -54,7 +52,6 @@
       background-color: #e0ffe0;
     }
 
-    /* Haupt-Card mit allen Inputs */
     .main-card {
       background: #fffdf2;
       padding: 28px;
@@ -141,7 +138,6 @@
       line-height: 1.35;
     }
 
-    /* Side Card */
     .side-card {
       width: 260px;
       background: #fff7b8;
@@ -152,53 +148,37 @@
       color: #222;
       line-height: 1.45;
     }
-@media (max-width: 768px) {
-    /* Allgemeine Anpassung für kleine Bildschirme */
-    body {
-        padding: 20px;
-        /* Erlaubt Elementen, untereinander zu springen, falls noch nicht geschehen */
-        flex-direction: column; 
-        align-items: center; /* Zentriert die Elemente */
-        gap: 30px;
-    }
 
-    /* Der Haupt-Container, der Charakterauswahl und die Karten umgibt */
-    .container {
-        flex-direction: column; /* Stellt die Elemente untereinander */
-        align-items: center;
-        gap: 30px;
+    @media (max-width: 768px) {
+      body {
+          padding: 20px;
+          flex-direction: column; 
+          align-items: center;
+          gap: 30px;
+      }
+      .container {
+          flex-direction: column; 
+          align-items: center;
+          gap: 30px;
+      }
+      .character-container,
+      .main-card,
+      .side-card {
+          width: 90vw; 
+          max-width: 450px; 
+          box-sizing: border-box; 
+      }
+      .card-button {
+          font-size: 20px; 
+          padding: 25px;
+      }
     }
-
-    /* Die fixen Breiten auf eine maximale Breite von 90% des Viewports ändern */
-    .character-container,
-    .main-card,
-    .side-card {
-        width: 90vw; /* 90% der Bildschirmbreite */
-        max-width: 450px; /* Begrenzt die maximale Breite, falls der Bildschirm sehr groß ist */
-        box-sizing: border-box; /* Stellt sicher, dass Padding und Border zur Gesamtbreite gehören */
-    }
-
-    /* Button-Textgröße auf mobilen Geräten verkleinern */
-    .card-button {
-        font-size: 20px; 
-        padding: 25px;
-    }
-
-    /* Die ausgeblendeten Charaktere für die Handyansicht wieder anzeigen */
-    .character.hidden {
-        display: flex; /* Oder 'block', je nach ursprünglichem Stil */
-    }
-
-    /* Die Logik, die Charaktere bei Auswahl ausblendet, für Mobilgeräte deaktivieren */
-    /* Oder alternativ: Eine mobile Ansicht entwickeln, bei der alle Charaktere sichtbar bleiben, bis einer ausgewählt wird */
-}
   </style>
 </head>
 <body>
 
   <div class="container">
 
-    <!-- Charakterauswahl links -->
     <div class="character-container">
       <h2>Charakter auswählen</h2>
 
@@ -244,7 +224,6 @@
       </div>
     </div>
 
-    <!-- Main Card in der Mitte -->
     <div class="main-card">
       <div class="input-group">
         <span class="label">Spielername</span>
@@ -271,7 +250,6 @@
       </div>
     </div>
 
-    <!-- Side Card rechts -->
     <div class="side-card">
       <strong>Schlechter Start ins Leben</strong><br><br>
       <strong>Effekt:</strong><br>
@@ -311,12 +289,16 @@
   function selectCharacter(selected) {
     const allChars = document.querySelectorAll('.character');
     allChars.forEach(char => {
-      if(char !== selected) char.classList.add('hidden');
+      if(char !== selected) {
+        char.classList.add('hidden'); // Alle anderen ausblenden
+        char.classList.remove('selected'); // Entferne eventuell 'selected'
+      } else {
+        char.classList.remove('hidden'); // Ausgewählt sichtbar
+        char.classList.add('selected');  // Markiere ausgewählt
+      }
     });
-    selected.classList.add('selected');
   }
 </script>
 
 </body>
 </html>
-

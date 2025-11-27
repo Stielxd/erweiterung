@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Text Karte & Charakterauswahl</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fffdf5, #fff8dd);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 50px;
+      margin: 0;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* Container für Charakter + Main + Side */
+    .container {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    /* Charakterauswahl */
+    .character-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 260px;
+    }
+
+    .character {
+      background-color: #fffef3;
+      border: 2px solid #ddd;
+      border-radius: 16px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .character:hover {
+      background-color: #fffbe5;
+      transform: scale(1.02);
+    }
+    .character.hidden {
+      display: none;
+    }
+    .character.selected {
+      border-color: #00c800;
+      background-color: #e0ffe0;
+    }
+
+    /* Haupt-Card mit allen Inputs */
+    .main-card {
+      background: #fffdf2;
+      padding: 28px;
+      width: 420px;
+      border-radius: 22px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .label {
+      font-weight: 600;
+      margin-bottom: -6px;
+      font-size: 15px;
+      color: #444;
+    }
+
+    .row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      border: none;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 16px;
+      width: 100%;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+      background: #fffef3;
+      transition: 0.2s;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.18);
+      background: #fffbe5;
+    }
+
+    input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      accent-color: #ffe76b;
+      cursor: pointer;
+    }
+
+    .card-button {
+      background: #ffef9a;
+      border: none;
+      border-radius: 22px;
+      padding: 40px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a1a1a;
+      transform: rotate(-4deg);
+      box-shadow: 0 8px 14px rgba(0,0,0,0.15);
+      transition: 0.25s ease;
+      letter-spacing: 0.5px;
+    }
+    .card-button:hover {
+      transform: rotate(-4deg) scale(1.05);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.22);
+    }
+
+    .text-output {
+      min-height: 150px;
+      border-radius: 16px;
+      padding: 18px;
+      background: #fff9c4;
+      color: #222;
+      font-size: 18px;
+      box-shadow: inset 0 3px 8px rgba(0,0,0,0.12);
+      white-space: pre-line;
+      line-height: 1.35;
+    }
+
+    /* Side Card */
+    .side-card {
+      width: 260px;
+      background: #fff7b8;
+      border-radius: 20px;
+      padding: 30px;
+      font-size: 17px;
+      box-shadow: 0 8px 14px rgba(0,0,0,0.15);
+      color: #222;
+      line-height: 1.45;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Charakterauswahl links -->
+    <div class="character-container">
+      <h2>Charakter auswählen</h2>
+
+      <div class="character" onclick="selectCharacter(this)">
+        🎯 ) Der Spieler („Gambler“)<br>
+        Kontrolle über Würfel & Glück. <br>
+        W6: 1–2: -5000, 3–5: nichts, 6: +10.000
+      </div>
+
+      <div class="character" onclick="selectCharacter(this)">
+        🔮 ) Der Unternehmer<br>
+        Passives Einkommen, teure Verpflichtungen. <br>
+        Vorteile: +8.000 pro Runde, +2.000 B-Varianten <br>
+        Nachteile: A-Variante +30% Verlust, 2 Runden kein Geld: -10.000
+      </div>
+
+      <div class="character" onclick="selectCharacter(this)">
+        🔥 ) Der Draufgänger<br>
+        Riesige Gewinne, riesige Risiken. <br>
+        Vorteile: 7+ Wurf: +15.000 <br>
+        Nachteile: <3 Wurf: -20.000
+      </div>
+
+      <div class="character" onclick="selectCharacter(this)">
+        🧊 ) Der Bodyguard<br>
+        Viel Sicherheit, wenig Wachstum. <br>
+        Vorteile: A-Variante 50% abgeschwächt, Angriff auf dich: -5.000 Gegner <br>
+        Nachteile: B-Variante -20% Gewinn, Start: -20.000 Schulden
+      </div>
+
+      <div class="character" onclick="selectCharacter(this)">
+        💼 ) Der Deal-Maker<br>
+        Handel & Tausch. <br>
+        Vorteile: 3× Effekt tauschen, B-Variante anderer: +2.000 <br>
+        Nachteile: Jeden 2. Zug 5.000 an Spieler schenken
+      </div>
+
+      <div class="character" onclick="selectCharacter(this)">
+        💀 ) Der Saboteur<br>
+        Schaden & Chaos. <br>
+        Vorteile: 10× pro Runde -5.000, A-Variante anderer: +3.000 <br>
+        Nachteile: Eigene A-Variante +50%, 2 Spieler gleiche Runde: -10.000
+      </div>
+    </div>
+
+    <!-- Main Card in der Mitte -->
+    <div class="main-card">
+      <div class="input-group">
+        <span class="label">Spielername</span>
+        <div class="row">
+          <input id="nameInput" type="text" placeholder="Name eingeben" />
+          <input id="checkBox" type="checkbox" title="Nur Variante B anzeigen" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <span class="label">Aktuelles Vermögen</span>
+        <input id="moneyInput" type="text" placeholder="Betrag in €" />
+      </div>
+
+      <div class="input-group">
+        <span class="label">Aktuelle Schulden</span>
+        <input id="debtInput" type="text" placeholder="Betrag in €" />
+      </div>
+
+      <div id="textOutput" class="text-output"></div>
+
+      <div class="card-button" onclick="generateText()">
+        auf die schiefe Bahn geraten
+      </div>
+    </div>
+
+    <!-- Side Card rechts -->
+    <div class="side-card">
+      <strong>Schlechter Start ins Leben</strong><br><br>
+      <strong>Effekt:</strong><br>
+      • Du startest mit -250.000 Schulden.<br>
+      • Bei jeder „Schiefe Bahn“-Karte zählt für dich Variante B.<br>
+      • Plus einen Wurf bei Happy End.
+    </div>
+
+  </div>
+
+<script>
+  const texte = [
+    "Drogenrausch:\nA – Du lässt anschreiben:\n- Bei 1,5,9: -10.000\n\nB – Du steigst ein:\n- Bei 2,4,6: +20.000\n+5.000 vom linken Mitspieler",
+    "Freier:\nA – Du wirst abgezockt:\n- 1,2,6: -15.000\n\nB – Du übernimmst das Geschäft:\n- Bei jeder 1,2,3,4,5,6: +5.000",
+    "Mafia:\nA – Verschuldet:\n- Bei jedem Zahltag: 10% oder min. 10.000 zahlen\n\nB – Willkommen in der Familie:\n- Wenn ein Spieler Gehalt bekommt: +5.000",
+    "Razzia:\nA – Wohnung wird gestürmt:\n- Bei 1,3,6,8,10: -5.000\n\nB – Informant:\n- Setze jede Runde auf 1 Zahl: Trifft sie → +10.000"
+  ];
+
+  function generateText() {
+    const onlyB = document.getElementById("checkBox").checked;
+
+    let pool;
+    if (onlyB) {
+      pool = texte.map(t => {
+        const lines = t.split('\n');
+        const bLines = lines.filter(line => line.trim().startsWith('B –') || line.trim() === '');
+        return bLines.join('\n');
+      }).filter(t => t.trim() !== '');
+    } else {
+      pool = texte;
+    }
+
+    const randomIndex = Math.floor(Math.random() * pool.length);
+    document.getElementById("textOutput").innerText = pool[randomIndex];
+  }
+
+  function selectCharacter(selected) {
+    const allChars = document.querySelectorAll('.character');
+    allChars.forEach(char => {
+      if(char !== selected) char.classList.add('hidden');
+    });
+    selected.classList.add('selected');
+  }
+</script>
+
+</body>
+</html>
